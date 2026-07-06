@@ -68,21 +68,26 @@
 
   /* To-do */
   .todo{padding:16px;margin-bottom:16px;}
-  .todo-add{display:flex;gap:10px;flex-wrap:wrap;}
-  .todo-add .t-text{flex:1 1 240px;}
-  .todo-add .t-day{flex:0 0 128px;}
+  .todo-add{display:flex;flex-direction:column;gap:10px;}
+  .todo-add-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .todo-add-row .t-title{flex:1 1 240px;}
+  .todo-add-row .t-day{flex:0 0 128px;}
+  .todo-add-btns{display:flex;gap:10px;}
   .todo-progress{display:flex;align-items:center;gap:12px;margin:14px 4px 2px;}
   .todo-progress .bar{flex:1;height:6px;background:var(--surface-2);border-radius:999px;overflow:hidden;}
   .todo-progress .bar span{display:block;height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .25s;}
   .todo-progress .lbl{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap;}
   .todo-list{margin-top:6px;}
-  .todo-item{display:flex;align-items:center;gap:11px;padding:10px 4px;border-bottom:1px solid var(--surface-2);animation:pop .18s ease;}
+  .todo-item{display:flex;align-items:flex-start;gap:11px;padding:10px 4px;border-bottom:1px solid var(--surface-2);animation:pop .18s ease;}
   .todo-item:last-child{border-bottom:none;}
   .todo-item.editing{background:var(--accent-soft);border-radius:8px;padding:10px;margin:2px -6px;}
-  .todo-item .chk{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex:0 0 auto;margin:0;}
-  .todo-item .t-name{flex:1 1 auto;color:var(--ink);word-break:break-word;}
+  .todo-item .chk{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex:0 0 auto;margin:3px 0 0;}
+  .todo-item .grip{margin-top:3px;}
+  .todo-item .t-main{flex:1 1 auto;min-width:0;}
+  .todo-item .t-name{display:block;color:var(--ink);word-break:break-word;}
+  .todo-item .t-detail-line{display:block;color:var(--muted);font-size:13px;margin-top:2px;word-break:break-word;}
   .todo-item.done .t-name{text-decoration:line-through;color:var(--muted);}
-  .todo-item .t-daychip{font-size:12px;font-weight:600;color:var(--ink-soft);background:var(--surface-2);padding:3px 9px;border-radius:999px;white-space:nowrap;}
+  .todo-item .t-daychip{font-size:12px;font-weight:600;color:var(--ink-soft);background:var(--surface-2);padding:3px 9px;border-radius:999px;white-space:nowrap;flex:0 0 auto;margin-top:1px;}
   .todo-empty{color:var(--muted);font-size:14px;padding:14px 4px;}
   .todo-copy{margin-top:14px;}
   .todo-hint{color:var(--muted);font-size:12px;margin:12px 4px 0;line-height:1.5;}
@@ -107,14 +112,21 @@
   }
   .cell{
     background:var(--surface);border:1px solid var(--border);
-    border-radius:var(--radius-sm);padding:11px 6px 10px;text-align:center;
-    cursor:pointer;position:relative;transition:border-color .12s,transform .08s,box-shadow .12s;
+    border-radius:var(--radius-sm);padding:10px 5px 9px;text-align:center;
+    cursor:pointer;position:relative;min-height:88px;
+    display:flex;flex-direction:column;
+    transition:border-color .12s,transform .08s,box-shadow .12s;
   }
   .cell:hover{border-color:var(--border-strong);}
-  .cell .dow{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:5px;}
+  .cell .dow{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:5px;text-align:center;}
   .cell .num{font-family:var(--mono);font-size:20px;font-weight:700;line-height:1;color:var(--ink);}
-  .cell .num.empty{color:var(--border-strong);font-weight:500;}
-  .cell .hh{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px;height:13px;}
+  .cell .num.empty{color:var(--border-strong);font-weight:500;margin-top:10px;}
+  .cell .titles{display:flex;flex-direction:column;gap:3px;}
+  .cell .titles .title-line{
+    font-size:11px;line-height:1.3;color:var(--ink-soft);background:var(--surface-2);
+    border-radius:5px;padding:3px 5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;
+  }
+  .cell .titles .more{font-size:10px;color:var(--muted);text-align:center;margin-top:1px;}
   .cell.today{border-color:var(--border-strong);}
   .cell.today::after{
     content:"오늘";position:absolute;top:6px;right:6px;font-size:9px;
@@ -125,29 +137,20 @@
   }
   .cell.active .dow{color:var(--accent);}
 
-  /* Composer */
-  .composer{padding:16px;margin-bottom:16px;}
-  .row{display:flex;gap:10px;flex-wrap:wrap;}
-  .row + .row{margin-top:10px;}
-  label.lab{font-size:0;} /* labels are aria-only */
-  input,select{
+  input,select,textarea{
     font-family:var(--sans);font-size:15px;color:var(--ink);
     background:var(--surface);border:1px solid var(--border-strong);
     border-radius:var(--radius-sm);padding:10px 12px;width:100%;
     transition:border-color .12s,box-shadow .12s;
   }
-  input::placeholder{color:#A7AEBB;}
-  input:focus,select:focus{
+  input::placeholder,textarea::placeholder{color:#A7AEBB;}
+  input:focus,select:focus,textarea:focus{
     outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);
   }
+  textarea{resize:vertical;min-height:56px;line-height:1.5;font-family:var(--sans);}
   select{cursor:pointer;-webkit-appearance:none;appearance:none;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' stroke='%23737C8C' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
     background-repeat:no-repeat;background-position:right 11px center;padding-right:30px;}
-  .f-day{flex:0 0 108px;}
-  .f-task{flex:1 1 240px;}
-  .f-cat{flex:1 1 180px;}
-  .f-hours{flex:0 0 104px;}
-  .f-status{flex:0 0 118px;}
   .btn{
     font-family:var(--sans);font-size:15px;font-weight:600;cursor:pointer;
     border-radius:var(--radius-sm);padding:10px 18px;border:1px solid transparent;
@@ -160,8 +163,6 @@
   .btn-accent:hover{background:var(--accent-strong);}
   .btn-ghost{background:var(--surface);color:var(--ink-soft);border-color:var(--border-strong);}
   .btn-ghost:hover{background:var(--surface-2);border-color:var(--muted);}
-  #addBtn{flex:0 0 auto;}
-  #cancelBtn{display:none;flex:0 0 auto;}
 
   /* Entries */
   .entries{margin-bottom:16px;}
@@ -183,18 +184,16 @@
     animation:pop .18s ease;
   }
   .entry:last-child{border-bottom:none;}
-  .entry.editing{background:var(--accent-soft);border-radius:8px;padding:11px 10px;margin:2px -6px;}
   .entry .task{flex:1 1 220px;color:var(--ink);word-break:break-word;}
   .entry .meta{display:flex;align-items:center;gap:10px;margin-left:auto;flex-wrap:wrap;}
-  .entry .cat{color:var(--muted);font-size:13px;}
-  .entry .hrs{font-family:var(--mono);font-size:13px;color:var(--ink-soft);min-width:34px;text-align:right;}
-  .entry .hrs.none{color:var(--border-strong);}
   .chip{
     font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap;
   }
   .chip.doing{color:var(--accent);background:var(--accent-soft);}
   .chip.done{color:var(--ok);background:var(--ok-bg);}
   .chip.hold{color:var(--warn);background:var(--warn-bg);}
+  button.chip{border:none;font-family:var(--sans);cursor:pointer;transition:filter .12s;}
+  button.chip:hover{filter:brightness(0.95);}
   .iconbtn{
     background:none;border:none;cursor:pointer;color:var(--muted);
     padding:5px;border-radius:7px;display:grid;place-items:center;line-height:0;
@@ -216,7 +215,6 @@
   .summary .stat{display:flex;align-items:baseline;gap:6px;}
   .summary .stat .n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--ink);}
   .summary .stat .l{font-size:13px;color:var(--muted);}
-  .summary .divider{width:1px;height:20px;background:var(--border);}
   .summary .breakdown{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;}
 
   /* Export bar */
@@ -277,16 +275,14 @@
   @media (max-width:640px){
     body{padding:20px 12px 60px;}
     .head h1{font-size:22px;}
-    .row{flex-direction:column;}
-    .f-day,.f-task,.f-cat,.f-hours,.f-status{flex:1 1 auto;}
     .btn{width:100%;justify-content:center;}
     .exportbar .btns .btn{width:100%;}
-    .cell{padding:9px 3px 8px;}
+    .cell{padding:8px 3px 7px;min-height:78px;}
     .cell .num{font-size:17px;}
+    .cell .titles .title-line{font-size:10px;padding:2px 4px;}
     .summary{gap:12px;}
-    .summary .divider{display:none;}
-    .todo-add{flex-direction:column;}
-    .todo-add .t-text,.todo-add .t-day{flex:1 1 auto;}
+    .todo-add-row{flex-direction:column;}
+    .todo-add-row .t-title,.todo-add-row .t-day{flex:1 1 auto;}
   }
   @media (prefers-reduced-motion:reduce){
     *{transition:none!important;animation:none!important;}
@@ -313,12 +309,15 @@
   <p class="sec-label">해야 할 일</p>
   <div class="card todo">
     <div class="todo-add">
-      <label class="lab" for="tText">할 일</label>
-      <input id="tText" class="t-text" type="text" placeholder="이번 주에 해야 할 일" autocomplete="off" />
-      <label class="lab" for="tDay">요일</label>
-      <select id="tDay" class="t-day" aria-label="요일"></select>
-      <button class="btn btn-ink" id="tAddBtn">추가</button>
-      <button class="btn btn-ghost" id="tCancelBtn">취소</button>
+      <div class="todo-add-row">
+        <input id="tText" class="t-title" type="text" placeholder="제목" aria-label="제목" autocomplete="off" />
+        <select id="tDay" class="t-day" aria-label="요일"></select>
+      </div>
+      <textarea id="tDetail" class="t-detail" placeholder="세부내용 (선택)" aria-label="세부내용" rows="2"></textarea>
+      <div class="todo-add-btns">
+        <button class="btn btn-ink" id="tAddBtn">추가</button>
+        <button class="btn btn-ghost" id="tCancelBtn">취소</button>
+      </div>
     </div>
     <div class="todo-progress" id="todoProgress" style="display:none">
       <div class="bar"><span id="todoBar"></span></div>
@@ -331,54 +330,6 @@
 
   <p class="sec-label gap">업무 기록</p>
   <div class="ribbon" id="ribbon" role="tablist" aria-label="요일 선택"></div>
-
-  <div class="card composer">
-    <div class="row">
-      <div style="flex:1 1 auto">
-        <label class="lab" for="inFromTodo">할 일 불러오기</label>
-        <select id="inFromTodo" aria-label="할 일에서 불러오기"></select>
-      </div>
-    </div>
-    <div class="row">
-      <div class="f-day">
-        <label class="lab" for="inDay">요일</label>
-        <select id="inDay" aria-label="요일"></select>
-      </div>
-      <div class="f-task">
-        <label class="lab" for="inTask">업무 내용</label>
-        <input id="inTask" type="text" placeholder="무슨 일을 했나요?" autocomplete="off" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="f-cat">
-        <label class="lab" for="inCat">카테고리</label>
-        <input id="inCat" type="text" placeholder="카테고리 (선택)" list="catList" autocomplete="off" />
-        <datalist id="catList">
-          <option value="기획"></option>
-          <option value="콘텐츠 제작"></option>
-          <option value="개발"></option>
-          <option value="회의"></option>
-          <option value="검토·QA"></option>
-          <option value="문서작성"></option>
-          <option value="기타"></option>
-        </datalist>
-      </div>
-      <div class="f-hours">
-        <label class="lab" for="inHours">소요 시간</label>
-        <input id="inHours" type="number" min="0" step="0.5" placeholder="시간" inputmode="decimal" />
-      </div>
-      <div class="f-status">
-        <label class="lab" for="inStatus">상태</label>
-        <select id="inStatus" aria-label="상태">
-          <option value="진행중">진행중</option>
-          <option value="완료">완료</option>
-          <option value="보류">보류</option>
-        </select>
-      </div>
-      <button class="btn btn-ink" id="addBtn">추가</button>
-      <button class="btn btn-ghost" id="cancelBtn">취소</button>
-    </div>
-  </div>
 
   <div class="card summary" id="summary"></div>
 
@@ -418,13 +369,11 @@
     weekStart: startOfWeek(new Date()),
     entries: [],        // {id, date:'YYYY-MM-DD', task, category, hours:(Number|null), status}
     focus: null,        // 'YYYY-MM-DD' or null
-    editingId: null,
     lastDeleted: null,
     toastTimer: null,
-    todos: [],          // {id, week:'YYYY-MM-DD'(Mon), date:'YYYY-MM-DD'|null, text, done}
+    todos: [],          // {id, week:'YYYY-MM-DD'(Mon), date:'YYYY-MM-DD'|null, text, detail, done}
     editingTodoId: null,
     lastDeletedTodo: null,
-    composerTodoId: null,   // to-do currently loaded into the log composer
     lastConvert: null,      // undo info for drag-to-log
   };
 
@@ -449,24 +398,17 @@
     const e = (by!==ay? by+".":"")+pad(b.getMonth()+1)+"."+pad(b.getDate());
     return s+" – "+e;
   }
-  function fmtHours(n){
-    if(n==null || isNaN(n)) return "—";
-    return (Math.round(n*10)/10) + "h";
-  }
-
   // ---- data queries ----
   function weekEntries(){
     const set = new Set(weekDates().map(iso));
     return state.entries.filter(e => set.has(e.date));
   }
   function entriesFor(dateStr){ return state.entries.filter(e => e.date===dateStr); }
-  function sumHours(list){ return list.reduce((a,e)=> a + (e.hours||0), 0); }
 
   // ---- rendering ----
   function render(){
     $("weekRange").textContent = fmtRange();
     renderTodos();
-    renderTodoPicker();
     renderRibbon();
     renderSummary();
     renderEntries();
@@ -475,6 +417,7 @@
 
   function renderRibbon(){
     const wrap = $("ribbon"); wrap.innerHTML = "";
+    const MAX_SHOW = 3;
     weekDates().forEach((d,i)=>{
       const ds = iso(d);
       const list = entriesFor(ds);
@@ -483,15 +426,17 @@
       cell.dataset.date = ds;
       cell.setAttribute("role","tab");
       cell.setAttribute("aria-selected", state.focus===ds ? "true":"false");
-      const cnt = list.length;
-      const h = sumHours(list);
-      cell.innerHTML =
-        '<div class="dow">'+DOW[i]+'</div>'+
-        '<div class="num'+(cnt?'':' empty')+'">'+(cnt?cnt:'·')+'</div>'+
-        '<div class="hh">'+(h>0?fmtHours(h):'')+'</div>';
+      let body;
+      if(list.length===0){
+        body = '<div class="num empty">·</div>';
+      } else {
+        const shown = list.slice(0, MAX_SHOW).map(e=>'<div class="title-line">'+esc(e.task)+'</div>').join("");
+        const more = list.length>MAX_SHOW ? '<div class="more">+'+(list.length-MAX_SHOW)+'개 더</div>' : '';
+        body = '<div class="titles">'+shown+more+'</div>';
+      }
+      cell.innerHTML = '<div class="dow">'+DOW[i]+'</div>'+body;
       cell.addEventListener("click", ()=>{
         state.focus = (state.focus===ds) ? null : ds;
-        $("inDay").value = ds; // aim new entries at the clicked day
         render();
       });
       wrap.appendChild(cell);
@@ -501,14 +446,11 @@
   function renderSummary(){
     const list = weekEntries();
     const total = list.length;
-    const h = sumHours(list);
     const done = list.filter(e=>e.status==="완료").length;
     const doing = list.filter(e=>e.status==="진행중").length;
     const hold = list.filter(e=>e.status==="보류").length;
     $("summary").innerHTML =
       '<div class="stat"><span class="n">'+total+'</span><span class="l">건</span></div>'+
-      '<div class="divider"></div>'+
-      '<div class="stat"><span class="n">'+(Math.round(h*10)/10)+'</span><span class="l">시간</span></div>'+
       '<div class="breakdown">'+
         '<span class="chip doing">진행중 '+doing+'</span>'+
         '<span class="chip done">완료 '+done+'</span>'+
@@ -545,7 +487,7 @@
       head.innerHTML =
         '<span class="d-dow">'+dowLabel(ds)+'요일</span>'+
         '<span class="d-date">'+ds+'</span>'+
-        '<span class="d-meta">'+list.length+'건 · '+fmtHours(sumHours(list))+'</span>';
+        '<span class="d-meta">'+list.length+'건</span>';
       if(state.focus){
         const all = document.createElement("button");
         all.className = "allbtn"; all.textContent = "전체 보기";
@@ -556,19 +498,15 @@
 
       list.forEach(e=>{
         const row = document.createElement("div");
-        row.className = "entry" + (state.editingId===e.id?" editing":"");
+        row.className = "entry";
         row.innerHTML =
           '<div class="task">'+esc(e.task)+'</div>'+
           '<div class="meta">'+
-            (e.category? '<span class="cat">'+esc(e.category)+'</span>':'')+
-            '<span class="hrs'+(e.hours==null?' none':'')+'">'+fmtHours(e.hours)+'</span>'+
-            '<span class="chip '+statusClass(e.status)+'">'+e.status+'</span>'+
-            '<button class="iconbtn" aria-label="수정" title="수정">'+icon("edit")+'</button>'+
+            '<button class="chip '+statusClass(e.status)+'" aria-label="상태 변경" title="눌러서 상태 변경">'+e.status+'</button>'+
             '<button class="iconbtn del" aria-label="삭제" title="삭제">'+icon("trash")+'</button>'+
           '</div>';
-        const btns = row.querySelectorAll(".iconbtn");
-        btns[0].addEventListener("click", ()=>beginEdit(e.id));
-        btns[1].addEventListener("click", ()=>removeEntry(e.id));
+        row.querySelector(".chip").addEventListener("click", ()=>cycleStatus(e.id));
+        row.querySelector(".iconbtn.del").addEventListener("click", ()=>removeEntry(e.id));
         group.appendChild(row);
       });
       box.appendChild(group);
@@ -626,7 +564,10 @@
       row.innerHTML =
         '<span class="grip" aria-label="드래그해서 기록으로" title="끌어서 요일 칸에 놓기">'+icon("grip")+'</span>'+
         '<input type="checkbox" class="chk" '+(t.done?"checked":"")+' aria-label="완료 표시" />'+
-        '<span class="t-name">'+esc(t.text)+'</span>'+
+        '<div class="t-main">'+
+          '<span class="t-name">'+esc(t.text)+'</span>'+
+          (t.detail? '<span class="t-detail-line">'+esc(t.detail)+'</span>':'')+
+        '</div>'+
         (t.date? '<span class="t-daychip">'+dowLabel(t.date)+'</span>':'')+
         '<button class="iconbtn" aria-label="수정" title="수정">'+icon("edit")+'</button>'+
         '<button class="iconbtn del" aria-label="삭제" title="삭제">'+icon("trash")+'</button>';
@@ -640,6 +581,7 @@
   }
   function submitTodo(){
     const text = $("tText").value.trim();
+    const detail = $("tDetail").value.trim();
     const date = $("tDay").value || null;
     if(!text){
       $("tText").focus();
@@ -649,12 +591,12 @@
     }
     if(state.editingTodoId){
       const t = state.todos.find(x=>x.id===state.editingTodoId);
-      if(t){ t.text = text; t.date = date; }
+      if(t){ t.text = text; t.detail = detail; t.date = date; }
       endEditTodo();
     } else {
-      state.todos.push({ id: uid(), week: iso(state.weekStart), date, text, done:false });
+      state.todos.push({ id: uid(), week: iso(state.weekStart), date, text, detail, done:false });
     }
-    $("tText").value = ""; $("tDay").value = "";
+    $("tText").value = ""; $("tDetail").value = ""; $("tDay").value = "";
     $("tText").focus();
     render();
   }
@@ -665,7 +607,7 @@
   function beginEditTodo(id){
     const t = state.todos.find(x=>x.id===id); if(!t) return;
     state.editingTodoId = id;
-    $("tText").value = t.text; $("tDay").value = t.date || "";
+    $("tText").value = t.text; $("tDetail").value = t.detail || ""; $("tDay").value = t.date || "";
     $("tAddBtn").textContent = "수정 저장";
     $("tAddBtn").classList.remove("btn-ink"); $("tAddBtn").classList.add("btn-accent");
     $("tCancelBtn").style.display = "";
@@ -678,7 +620,7 @@
     $("tAddBtn").textContent = "추가";
     $("tAddBtn").classList.add("btn-ink"); $("tAddBtn").classList.remove("btn-accent");
     $("tCancelBtn").style.display = "none";
-    $("tText").value = ""; $("tDay").value = "";
+    $("tText").value = ""; $("tDetail").value = ""; $("tDay").value = "";
   }
   function removeTodo(id){
     const idx = state.todos.findIndex(x=>x.id===id); if(idx<0) return;
@@ -697,40 +639,9 @@
     const list = sortedTodos();
     if(list.length===0){ showToast("이번 주 할 일이 없어요"); return; }
     const clean = v => String(v).replace(/[\t\r\n]+/g," ");
-    const rows = list.map(t => [t.text, t.date? dowLabel(t.date)+"요일":"", t.done?"완료":"미완료"]);
-    const text = [["할 일","요일","상태"], ...rows].map(r=>r.map(clean).join("\t")).join("\n");
+    const rows = list.map(t => [t.text, t.detail||"", t.date? dowLabel(t.date)+"요일":"", t.done?"완료":"미완료"]);
+    const text = [["할 일","세부내용","요일","상태"], ...rows].map(r=>r.map(clean).join("\t")).join("\n");
     copyToClipboard(text, "할 일이 복사됐어요 · 시트에서 붙여넣기(Ctrl/Cmd+V)");
-  }
-  function renderTodoPicker(){
-    const sel = $("inFromTodo");
-    const open = sortedTodos().filter(t=>!t.done);
-    sel.innerHTML = "";
-    const ph = document.createElement("option");
-    ph.value = "";
-    ph.textContent = open.length ? "할 일에서 불러오기…" : "불러올 할 일이 없어요";
-    sel.appendChild(ph);
-    open.forEach(t=>{
-      const o = document.createElement("option");
-      o.value = t.id;
-      o.textContent = t.text + (t.date ? " ("+dowLabel(t.date)+")" : "");
-      sel.appendChild(o);
-    });
-    sel.value = "";
-  }
-  function onPickTodo(){
-    const id = $("inFromTodo").value;
-    if(!id){ return; }
-    const t = state.todos.find(x=>x.id===id);
-    if(t){
-      $("inTask").value = t.text;
-      if(t.date){
-        const inWeek = weekDates().map(iso);
-        if(inWeek.includes(t.date)) $("inDay").value = t.date;
-      }
-      state.composerTodoId = t.id;
-      $("inTask").focus();
-    }
-    $("inFromTodo").value = "";
   }
 
   // ---- drag a to-do onto a day cell → log entry ----
@@ -787,7 +698,7 @@
   function convertTodoToEntry(id, date){
     const t = state.todos.find(x=>x.id===id); if(!t) return;
     const prevDone = t.done;
-    const entry = { id: uid(), date, task: t.text, category:"", hours:null, status:"완료" };
+    const entry = { id: uid(), date, task: t.text, category:"", hours:null, status:"진행중" };
     state.entries.push(entry);
     t.done = true;
     state.lastConvert = { todoId:id, prevDone, entryId:entry.id };
@@ -801,79 +712,17 @@
     });
   }
 
-  // ---- day select options (log) ----
-  function buildDayOptions(){
-    const sel = $("inDay"); const prev = sel.value; sel.innerHTML = "";
-    weekDates().forEach((d,i)=>{
-      const ds = iso(d);
-      const o = document.createElement("option");
-      o.value = ds; o.textContent = DOW[i] + (ds===todayISO?" (오늘)":"");
-      sel.appendChild(o);
-    });
-    const inWeek = weekDates().map(iso);
-    if(state.focus && inWeek.includes(state.focus)) sel.value = state.focus;
-    else if(inWeek.includes(prev)) sel.value = prev;
-    else if(inWeek.includes(todayISO)) sel.value = todayISO;
-    else sel.value = inWeek[0];
-  }
-
-  // ---- add / edit (log) ----
-  function submit(){
-    const date = $("inDay").value;
-    const task = $("inTask").value.trim();
-    const category = $("inCat").value.trim();
-    const hoursRaw = $("inHours").value;
-    const hours = hoursRaw==="" ? null : Math.max(0, parseFloat(hoursRaw));
-    const status = $("inStatus").value;
-    if(!task){
-      $("inTask").focus();
-      $("inTask").style.borderColor = "#B4342B";
-      setTimeout(()=>{ $("inTask").style.borderColor=""; }, 900);
-      return;
-    }
-    if(state.composerTodoId && status==="완료"){
-      const src = state.todos.find(x=>x.id===state.composerTodoId);
-      if(src) src.done = true;
-    }
-    if(state.editingId){
-      const e = state.entries.find(x=>x.id===state.editingId);
-      if(e){ Object.assign(e,{date,task,category,hours,status}); }
-      endEdit();
-    } else {
-      state.entries.push({ id: uid(), date, task, category, hours, status });
-    }
-    state.composerTodoId = null;
-    $("inTask").value = ""; $("inHours").value = ""; $("inStatus").value = "진행중";
-    $("inTask").focus();
-    render();
-  }
-  function beginEdit(id){
+  // ---- entry status / delete (log) ----
+  function cycleStatus(id){
+    const order = ["진행중","완료","보류"];
     const e = state.entries.find(x=>x.id===id); if(!e) return;
-    state.editingId = id;
-    state.composerTodoId = null;
-    $("inDay").value = e.date; $("inTask").value = e.task;
-    $("inCat").value = e.category||""; $("inHours").value = e.hours==null?"":e.hours;
-    $("inStatus").value = e.status;
-    $("addBtn").textContent = "수정 저장";
-    $("addBtn").classList.remove("btn-ink"); $("addBtn").classList.add("btn-accent");
-    $("cancelBtn").style.display = "";
+    e.status = order[(order.indexOf(e.status)+1) % order.length];
     render();
-    $("inTask").focus();
-    window.scrollTo({top:0, behavior:"smooth"});
-  }
-  function endEdit(){
-    state.editingId = null;
-    state.composerTodoId = null;
-    $("addBtn").textContent = "추가";
-    $("addBtn").classList.add("btn-ink"); $("addBtn").classList.remove("btn-accent");
-    $("cancelBtn").style.display = "none";
-    $("inTask").value=""; $("inHours").value=""; $("inStatus").value="진행중";
   }
   function removeEntry(id){
     const idx = state.entries.findIndex(x=>x.id===id); if(idx<0) return;
     state.lastDeleted = { entry: state.entries[idx], index: idx };
     state.entries.splice(idx,1);
-    if(state.editingId===id) endEdit();
     render();
     showToast("삭제됨", "실행 취소", ()=>{
       if(state.lastDeleted){
@@ -1064,23 +913,17 @@
 
   // ---- wire up ----
   $("syncStat").addEventListener("click", configureSync);
-  $("addBtn").addEventListener("click", submit);
-  $("cancelBtn").addEventListener("click", endEdit);
-  $("inTask").addEventListener("keydown", e=>{ if(e.key==="Enter") submit(); });
-  $("inHours").addEventListener("keydown", e=>{ if(e.key==="Enter") submit(); });
   $("copyBtn").addEventListener("click", copyTSV);
   $("csvBtn").addEventListener("click", downloadCSV);
-  $("inFromTodo").addEventListener("change", onPickTodo);
   $("tAddBtn").addEventListener("click", submitTodo);
   $("tCancelBtn").addEventListener("click", endEditTodo);
   $("tText").addEventListener("keydown", e=>{ if(e.key==="Enter") submitTodo(); });
   $("tCopyBtn").addEventListener("click", copyTodos);
   $("modalClose").addEventListener("click", ()=>$("modalBg").classList.remove("show"));
   $("modalBg").addEventListener("click", e=>{ if(e.target===$("modalBg")) $("modalBg").classList.remove("show"); });
-  $("prevWeek").addEventListener("click", ()=>{ state.weekStart=addDays(state.weekStart,-7); state.focus=null; endEdit(); endEditTodo(); buildDayOptions(); buildTodoDayOptions(); render(); });
-  $("nextWeek").addEventListener("click", ()=>{ state.weekStart=addDays(state.weekStart,7); state.focus=null; endEdit(); endEditTodo(); buildDayOptions(); buildTodoDayOptions(); render(); });
+  $("prevWeek").addEventListener("click", ()=>{ state.weekStart=addDays(state.weekStart,-7); state.focus=null; endEditTodo(); buildTodoDayOptions(); render(); });
+  $("nextWeek").addEventListener("click", ()=>{ state.weekStart=addDays(state.weekStart,7); state.focus=null; endEditTodo(); buildTodoDayOptions(); render(); });
 
-  buildDayOptions();
   buildTodoDayOptions();
   loadInitial();
 })();

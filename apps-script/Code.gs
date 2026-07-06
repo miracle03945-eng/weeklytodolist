@@ -85,9 +85,9 @@ function mirror(state) {
 
   var td = getSheet(TODO_SHEET);
   td.clearContents();
-  var thead = ['할 일', '요일', '상태', '주(월요일)'];
+  var thead = ['할 일', '세부내용', '요일', '상태', '주(월요일)'];
   var trows = state.todos.map(function (t) {
-    return [t.text, dowOf(t.date), t.done ? '완료' : '미완료', t.week || ''];
+    return [t.text, t.detail || '', dowOf(t.date), t.done ? '완료' : '미완료', t.week || ''];
   });
   var tout = [thead].concat(trows);
   td.getRange(1, 1, tout.length, thead.length).setValues(tout);
