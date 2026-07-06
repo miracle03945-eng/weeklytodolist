@@ -8,33 +8,33 @@
   href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <style>
   :root{
-    --canvas:#F7ECEA;
+    --canvas:#FDE7F0;
     --surface:#FFFFFF;
-    --surface-2:#F7EEEC;
-    --ink:#39282A;
-    --ink-soft:#654E50;
-    --muted:#9A7E7F;
-    --border:#EEDEDB;
-    --border-strong:#DCC0BE;
-    --accent:#A85566;
-    --accent-strong:#8A4152;
-    --accent-soft:#F1E0E1;
-    --accent-grad:linear-gradient(135deg,#B96878,#A85566);
-    --accent-grad-hover:linear-gradient(135deg,#A85566,#8A4152);
-    --ink-grad:linear-gradient(135deg,#4A3638,#2C1E20);
-    --ink-grad-hover:linear-gradient(135deg,#3D2C2E,#221718);
-    --ok:#527A5E;   --ok-bg:#E8EFE7;
-    --warn:#A17A3E; --warn-bg:#F3EADA;
+    --surface-2:#FFF1F6;
+    --ink:#3D2B35;
+    --ink-soft:#6E4C5A;
+    --muted:#A67F91;
+    --border:#F8DCE8;
+    --border-strong:#F0B9D0;
+    --accent:#C25876;
+    --accent-strong:#A8425F;
+    --accent-soft:#FBDEE9;
+    --accent-grad:linear-gradient(135deg,#D9738E,#C25876);
+    --accent-grad-hover:linear-gradient(135deg,#C25876,#A8425F);
+    --ink-grad:linear-gradient(135deg,#4A3340,#2C1E26);
+    --ink-grad-hover:linear-gradient(135deg,#3D2A35,#221720);
+    --ok:#4F8060;   --ok-bg:#E7F2EA;
+    --warn:#B27F3A; --warn-bg:#FBEDD9;
     --radius:12px;
     --radius-sm:9px;
     --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
     --sans:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
-    --shadow:0 1px 2px rgba(90,50,58,.05),0 6px 20px rgba(90,50,58,.07);
+    --shadow:0 1px 2px rgba(120,60,80,.06),0 6px 20px rgba(120,60,80,.08);
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    background:linear-gradient(160deg,#F5E6E3 0%,#FAF3F1 45%,#F1E3E4 100%);
+    background:linear-gradient(160deg,#FDE3ED 0%,#FFF6FA 45%,#FCE7F1 100%);
     background-attachment:fixed;
     color:var(--ink);
     font-family:var(--sans);
@@ -149,7 +149,7 @@
     border-radius:var(--radius-sm);padding:10px 12px;width:100%;
     transition:border-color .12s,box-shadow .12s;
   }
-  input::placeholder,textarea::placeholder{color:#BC9C9C;}
+  input::placeholder,textarea::placeholder{color:#CE9FB2;}
   input:focus,select:focus,textarea:focus{
     outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);
   }
@@ -241,7 +241,7 @@
   }
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
   .toast button{
-    background:none;border:none;color:#E3AEB4;font-weight:600;font-size:14px;
+    background:none;border:none;color:#F0AFC4;font-weight:600;font-size:14px;
     cursor:pointer;font-family:var(--sans);white-space:nowrap;padding:0;
   }
 
