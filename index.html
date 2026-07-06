@@ -306,7 +306,25 @@
     </div>
   </header>
 
-  <p class="sec-label">해야 할 일</p>
+  <p class="sec-label">업무 기록</p>
+  <div class="ribbon" id="ribbon" role="tablist" aria-label="요일 선택"></div>
+
+  <div class="card summary" id="summary"></div>
+
+  <div class="entries" id="entries"></div>
+
+  <div class="card exportbar">
+    <div class="btns">
+      <button class="btn btn-accent" id="copyBtn">기록 시트로 복사</button>
+      <button class="btn btn-ghost" id="csvBtn">CSV 다운로드</button>
+    </div>
+    <p class="hint">
+      <b>기록 시트로 복사</b>를 누르면 이번 주 업무 기록이 복사됩니다. 구글 시트를 열고 원하는 칸에서 붙여넣기(Ctrl/Cmd+V) 하면 칸별로 정리돼 들어가요. 할 일 목록은 위 <b>할 일 시트로 복사</b>로 따로 내보낼 수 있어요.<br>
+      <b>구글 시트 연동</b>을 설정하면 입력한 내용이 자동으로 저장되어 어떤 컴퓨터에서 열어도 이어서 작업할 수 있어요. 오른쪽 위 <b>연동 상태</b> 버튼을 눌러 설정하세요.
+    </p>
+  </div>
+
+  <p class="sec-label gap">해야 할 일</p>
   <div class="card todo">
     <div class="todo-add">
       <div class="todo-add-row">
@@ -324,26 +342,8 @@
       <span class="lbl" id="todoLbl"></span>
     </div>
     <div class="todo-list" id="todoList"></div>
-    <p class="todo-hint">항목 왼쪽 손잡이를 끌어 아래 <b>업무 기록</b>의 요일 칸에 놓으면, 그날 기록으로 추가돼요.</p>
+    <p class="todo-hint">항목 왼쪽 손잡이를 끌어 위 <b>업무 기록</b>의 요일 칸에 놓으면, 그날 기록으로 추가돼요.</p>
     <button class="btn btn-ghost todo-copy" id="tCopyBtn">할 일 시트로 복사</button>
-  </div>
-
-  <p class="sec-label gap">업무 기록</p>
-  <div class="ribbon" id="ribbon" role="tablist" aria-label="요일 선택"></div>
-
-  <div class="card summary" id="summary"></div>
-
-  <div class="entries" id="entries"></div>
-
-  <div class="card exportbar">
-    <div class="btns">
-      <button class="btn btn-accent" id="copyBtn">기록 시트로 복사</button>
-      <button class="btn btn-ghost" id="csvBtn">CSV 다운로드</button>
-    </div>
-    <p class="hint">
-      <b>기록 시트로 복사</b>를 누르면 이번 주 업무 기록이 복사됩니다. 구글 시트를 열고 원하는 칸에서 붙여넣기(Ctrl/Cmd+V) 하면 칸별로 정리돼 들어가요. 할 일 목록은 위 <b>할 일 시트로 복사</b>로 따로 내보낼 수 있어요.<br>
-      <b>구글 시트 연동</b>을 설정하면 입력한 내용이 자동으로 저장되어 어떤 컴퓨터에서 열어도 이어서 작업할 수 있어요. 오른쪽 위 <b>연동 상태</b> 버튼을 눌러 설정하세요.
-    </p>
   </div>
 
 </div>
