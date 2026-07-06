@@ -22,4 +22,7 @@
 - [ ] 사용자에게 구글 설정 단계 안내
 
 ## 리뷰
-(완료 후 작성)
+- 배포 완료: https://miracle03945-eng.github.io/weeklytodolist/ (HTTP 200, 빌드 성공)
+- 동기화 모듈 4개 경로 노드 목 테스트 통과: 무설정/로컬저장/원격채택+렌더/POST(text-plain)
+- 남은 사용자 작업: SETUP.md 따라 구글 시트+Apps Script 배포 → 웹앱 URL 발급
+  → 앱의 "연동 안 됨" 버튼에 붙여넣기(방법 A) 또는 URL 알려주면 CONFIG_URL에 고정(방법 B)
