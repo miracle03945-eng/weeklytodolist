@@ -374,7 +374,7 @@
     todos: [],          // {id, week:'YYYY-MM-DD'(Mon), date:'YYYY-MM-DD'|null, text, detail, done}
     editingTodoId: null,
     lastDeletedTodo: null,
-    lastConvert: null,      // undo info for drag-to-log
+    lastConvert: null,      // entry id for undoing the last drag-to-log
   };
 
   // ---- date helpers ----
@@ -697,17 +697,13 @@
   }
   function convertTodoToEntry(id, date){
     const t = state.todos.find(x=>x.id===id); if(!t) return;
-    const prevDone = t.done;
     const entry = { id: uid(), date, task: t.text, category:"", hours:null, status:"진행중" };
     state.entries.push(entry);
-    t.done = true;
-    state.lastConvert = { todoId:id, prevDone, entryId:entry.id };
+    state.lastConvert = entry.id;
     render();
     showToast(dowLabel(date)+"요일 기록에 추가했어요", "실행 취소", ()=>{
-      const ei = state.entries.findIndex(x=>x.id===state.lastConvert.entryId);
+      const ei = state.entries.findIndex(x=>x.id===state.lastConvert);
       if(ei>=0) state.entries.splice(ei,1);
-      const tt = state.todos.find(x=>x.id===state.lastConvert.todoId);
-      if(tt) tt.done = state.lastConvert.prevDone;
       state.lastConvert = null; render(); hideToast();
     });
   }
