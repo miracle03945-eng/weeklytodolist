@@ -8,29 +8,34 @@
   href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <style>
   :root{
-    --canvas:#E9ECF2;
+    --canvas:#FFE9F1;
     --surface:#FFFFFF;
-    --surface-2:#F4F6FA;
-    --ink:#1A2030;
-    --ink-soft:#3A4353;
-    --muted:#737C8C;
-    --border:#E1E5EC;
-    --border-strong:#CBD2DC;
-    --accent:#4B4FCF;
-    --accent-strong:#3B3FB0;
-    --accent-soft:#ECEDFB;
-    --ok:#1E7D4F;   --ok-bg:#E4F2EA;
-    --warn:#97650A; --warn-bg:#F8EFD6;
+    --surface-2:#FFF2F8;
+    --ink:#3D2436;
+    --ink-soft:#6B4558;
+    --muted:#96798A;
+    --border:#F6DCE8;
+    --border-strong:#EFC0D9;
+    --accent:#C93780;
+    --accent-strong:#AD2D6C;
+    --accent-soft:#FBDCEA;
+    --accent-grad:linear-gradient(135deg,#E0568F,#C93780);
+    --accent-grad-hover:linear-gradient(135deg,#C93780,#AD2D6C);
+    --ink-grad:linear-gradient(135deg,#5A3A4C,#3A2233);
+    --ink-grad-hover:linear-gradient(135deg,#4A2E3F,#2E1B27);
+    --ok:#2E7D5B;   --ok-bg:#E4F5EC;
+    --warn:#B4791A; --warn-bg:#FCEEDD;
     --radius:12px;
     --radius-sm:9px;
     --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
     --sans:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
-    --shadow:0 1px 2px rgba(26,32,48,.04),0 6px 20px rgba(26,32,48,.05);
+    --shadow:0 1px 2px rgba(201,55,128,.06),0 6px 20px rgba(201,55,128,.09);
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    background:var(--canvas);
+    background:linear-gradient(135deg,#FFE3EE 0%,#FFF3F8 45%,#FDE6F4 100%);
+    background-attachment:fixed;
     color:var(--ink);
     font-family:var(--sans);
     font-size:15px;
@@ -75,7 +80,7 @@
   .todo-add-btns{display:flex;gap:10px;}
   .todo-progress{display:flex;align-items:center;gap:12px;margin:14px 4px 2px;}
   .todo-progress .bar{flex:1;height:6px;background:var(--surface-2);border-radius:999px;overflow:hidden;}
-  .todo-progress .bar span{display:block;height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .25s;}
+  .todo-progress .bar span{display:block;height:100%;width:0;background:var(--accent-grad);border-radius:999px;transition:width .25s;}
   .todo-progress .lbl{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap;}
   .todo-list{margin-top:6px;}
   .todo-item{display:flex;align-items:flex-start;gap:11px;padding:10px 4px;border-bottom:1px solid var(--surface-2);animation:pop .18s ease;}
@@ -143,7 +148,7 @@
     border-radius:var(--radius-sm);padding:10px 12px;width:100%;
     transition:border-color .12s,box-shadow .12s;
   }
-  input::placeholder,textarea::placeholder{color:#A7AEBB;}
+  input::placeholder,textarea::placeholder{color:#C9A3B5;}
   input:focus,select:focus,textarea:focus{
     outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);
   }
@@ -157,10 +162,10 @@
     transition:background .12s,border-color .12s,transform .08s,color .12s;white-space:nowrap;
   }
   .btn:active{transform:translateY(1px);}
-  .btn-ink{background:var(--ink);color:#fff;flex:0 0 auto;}
-  .btn-ink:hover{background:#2A3242;}
-  .btn-accent{background:var(--accent);color:#fff;}
-  .btn-accent:hover{background:var(--accent-strong);}
+  .btn-ink{background:var(--ink-grad);color:#fff;flex:0 0 auto;}
+  .btn-ink:hover{background:var(--ink-grad-hover);}
+  .btn-accent{background:var(--accent-grad);color:#fff;}
+  .btn-accent:hover{background:var(--accent-grad-hover);}
   .btn-ghost{background:var(--surface);color:var(--ink-soft);border-color:var(--border-strong);}
   .btn-ghost:hover{background:var(--surface-2);border-color:var(--muted);}
 
@@ -235,7 +240,7 @@
   }
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
   .toast button{
-    background:none;border:none;color:#9BA0F0;font-weight:600;font-size:14px;
+    background:none;border:none;color:#F5A8C9;font-weight:600;font-size:14px;
     cursor:pointer;font-family:var(--sans);white-space:nowrap;padding:0;
   }
 
@@ -313,17 +318,6 @@
 
   <div class="entries" id="entries"></div>
 
-  <div class="card exportbar">
-    <div class="btns">
-      <button class="btn btn-accent" id="copyBtn">기록 시트로 복사</button>
-      <button class="btn btn-ghost" id="csvBtn">CSV 다운로드</button>
-    </div>
-    <p class="hint">
-      <b>기록 시트로 복사</b>를 누르면 이번 주 업무 기록이 복사됩니다. 구글 시트를 열고 원하는 칸에서 붙여넣기(Ctrl/Cmd+V) 하면 칸별로 정리돼 들어가요. 할 일 목록은 위 <b>할 일 시트로 복사</b>로 따로 내보낼 수 있어요.<br>
-      <b>구글 시트 연동</b>을 설정하면 입력한 내용이 자동으로 저장되어 어떤 컴퓨터에서 열어도 이어서 작업할 수 있어요. 오른쪽 위 <b>연동 상태</b> 버튼을 눌러 설정하세요.
-    </p>
-  </div>
-
   <p class="sec-label gap">해야 할 일</p>
   <div class="card todo">
     <div class="todo-add">
@@ -346,6 +340,17 @@
     <button class="btn btn-ghost todo-copy" id="tCopyBtn">할 일 시트로 복사</button>
   </div>
 
+  <div class="card exportbar">
+    <div class="btns">
+      <button class="btn btn-accent" id="copyBtn">기록 시트로 복사</button>
+      <button class="btn btn-ghost" id="csvBtn">CSV 다운로드</button>
+    </div>
+    <p class="hint">
+      <b>기록 시트로 복사</b>를 누르면 이번 주 업무 기록이 복사됩니다. 구글 시트를 열고 원하는 칸에서 붙여넣기(Ctrl/Cmd+V) 하면 칸별로 정리돼 들어가요. 할 일 목록은 위 <b>할 일 시트로 복사</b>로 따로 내보낼 수 있어요.<br>
+      <b>구글 시트 연동</b>을 설정하면 입력한 내용이 자동으로 저장되어 어떤 컴퓨터에서 열어도 이어서 작업할 수 있어요. 오른쪽 위 <b>연동 상태</b> 버튼을 눌러 설정하세요.
+    </p>
+  </div>
+
 </div>
 
 <div class="toast" id="toast"><span id="toastMsg"></span><button id="toastAction" style="display:none"></button></div>
@@ -362,7 +367,8 @@
 <script>
 (function(){
   "use strict";
-  const DOW = ["월","화","수","목","금","토","일"];
+  const DOW_FULL = ["월","화","수","목","금","토","일"]; // full week, for labeling any date
+  const WORKDAYS = ["월","화","수","목","금"];          // 업무 기록은 평일만 표시
   const $ = id => document.getElementById(id);
 
   const state = {
@@ -387,12 +393,12 @@
   function addDays(d, n){ const x = new Date(d); x.setDate(x.getDate()+n); return x; }
   function pad(n){ return n<10 ? "0"+n : ""+n; }
   function iso(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
-  function weekDates(){ return DOW.map((_,i)=>addDays(state.weekStart,i)); }
-  function dowLabel(dateStr){ const d=new Date(dateStr+"T00:00:00"); return DOW[(d.getDay()+6)%7]; }
+  function weekDates(){ return WORKDAYS.map((_,i)=>addDays(state.weekStart,i)); }
+  function dowLabel(dateStr){ const d=new Date(dateStr+"T00:00:00"); return DOW_FULL[(d.getDay()+6)%7]; }
   const todayISO = iso(new Date());
 
   function fmtRange(){
-    const a = state.weekStart, b = addDays(a,6);
+    const a = state.weekStart, b = addDays(a,4);
     const ay=a.getFullYear(), by=b.getFullYear();
     const s = ay+"."+pad(a.getMonth()+1)+"."+pad(a.getDate());
     const e = (by!==ay? by+".":"")+pad(b.getMonth()+1)+"."+pad(b.getDate());
@@ -434,7 +440,7 @@
         const more = list.length>MAX_SHOW ? '<div class="more">+'+(list.length-MAX_SHOW)+'개 더</div>' : '';
         body = '<div class="titles">'+shown+more+'</div>';
       }
-      cell.innerHTML = '<div class="dow">'+DOW[i]+'</div>'+body;
+      cell.innerHTML = '<div class="dow">'+WORKDAYS[i]+'</div>'+body;
       cell.addEventListener("click", ()=>{
         state.focus = (state.focus===ds) ? null : ds;
         render();
@@ -537,7 +543,7 @@
     none.value = ""; none.textContent = "요일 미지정"; sel.appendChild(none);
     weekDates().forEach((d,i)=>{
       const o = document.createElement("option");
-      o.value = iso(d); o.textContent = DOW[i]; sel.appendChild(o);
+      o.value = iso(d); o.textContent = WORKDAYS[i]; sel.appendChild(o);
     });
     sel.value = "";
   }
