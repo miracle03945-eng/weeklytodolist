@@ -8,33 +8,33 @@
   href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <style>
   :root{
-    --canvas:#FFE9F1;
+    --canvas:#F7ECEA;
     --surface:#FFFFFF;
-    --surface-2:#FFF2F8;
-    --ink:#3D2436;
-    --ink-soft:#6B4558;
-    --muted:#96798A;
-    --border:#F6DCE8;
-    --border-strong:#EFC0D9;
-    --accent:#C93780;
-    --accent-strong:#AD2D6C;
-    --accent-soft:#FBDCEA;
-    --accent-grad:linear-gradient(135deg,#E0568F,#C93780);
-    --accent-grad-hover:linear-gradient(135deg,#C93780,#AD2D6C);
-    --ink-grad:linear-gradient(135deg,#5A3A4C,#3A2233);
-    --ink-grad-hover:linear-gradient(135deg,#4A2E3F,#2E1B27);
-    --ok:#2E7D5B;   --ok-bg:#E4F5EC;
-    --warn:#B4791A; --warn-bg:#FCEEDD;
+    --surface-2:#F7EEEC;
+    --ink:#39282A;
+    --ink-soft:#654E50;
+    --muted:#9A7E7F;
+    --border:#EEDEDB;
+    --border-strong:#DCC0BE;
+    --accent:#A85566;
+    --accent-strong:#8A4152;
+    --accent-soft:#F1E0E1;
+    --accent-grad:linear-gradient(135deg,#B96878,#A85566);
+    --accent-grad-hover:linear-gradient(135deg,#A85566,#8A4152);
+    --ink-grad:linear-gradient(135deg,#4A3638,#2C1E20);
+    --ink-grad-hover:linear-gradient(135deg,#3D2C2E,#221718);
+    --ok:#527A5E;   --ok-bg:#E8EFE7;
+    --warn:#A17A3E; --warn-bg:#F3EADA;
     --radius:12px;
     --radius-sm:9px;
     --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
     --sans:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
-    --shadow:0 1px 2px rgba(201,55,128,.06),0 6px 20px rgba(201,55,128,.09);
+    --shadow:0 1px 2px rgba(90,50,58,.05),0 6px 20px rgba(90,50,58,.07);
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    background:linear-gradient(135deg,#FFE3EE 0%,#FFF3F8 45%,#FDE6F4 100%);
+    background:linear-gradient(160deg,#F5E6E3 0%,#FAF3F1 45%,#F1E3E4 100%);
     background-attachment:fixed;
     color:var(--ink);
     font-family:var(--sans);
@@ -99,7 +99,7 @@
   .todo-item .grip{color:var(--border-strong);cursor:grab;flex:0 0 auto;display:grid;place-items:center;line-height:0;padding:2px;margin:0 -2px;touch-action:none;transition:color .12s;}
   .todo-item .grip:hover{color:var(--muted);}
   .todo-item .grip:active{cursor:grabbing;}
-  .drag-ghost{position:fixed;transform:translate(8px,-50%);background:var(--ink);color:#fff;padding:8px 14px;border-radius:9px;font-size:14px;font-weight:500;box-shadow:0 12px 30px rgba(26,32,48,.32);pointer-events:none;z-index:70;max-width:62vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .drag-ghost{position:fixed;transform:translate(8px,-50%);background:var(--ink);color:#fff;padding:8px 14px;border-radius:9px;font-size:14px;font-weight:500;box-shadow:0 12px 30px rgba(57,40,42,.32);pointer-events:none;z-index:70;max-width:62vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   body.dragging{user-select:none;-webkit-user-select:none;cursor:grabbing;}
   body.dragging .cell{border-style:dashed;border-color:var(--border-strong);}
   .cell.drop-hover{border-style:solid;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);background:var(--accent-soft);}
@@ -149,7 +149,7 @@
     border-radius:var(--radius-sm);padding:10px 12px;width:100%;
     transition:border-color .12s,box-shadow .12s;
   }
-  input::placeholder,textarea::placeholder{color:#C9A3B5;}
+  input::placeholder,textarea::placeholder{color:#BC9C9C;}
   input:focus,select:focus,textarea:focus{
     outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);
   }
@@ -235,19 +235,19 @@
   .toast{
     position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
     background:var(--ink);color:#fff;padding:11px 16px;border-radius:10px;
-    font-size:14px;box-shadow:0 8px 30px rgba(26,32,48,.28);
+    font-size:14px;box-shadow:0 8px 30px rgba(57,40,42,.28);
     display:flex;align-items:center;gap:14px;opacity:0;pointer-events:none;
     transition:opacity .2s,transform .2s;z-index:50;max-width:90vw;
   }
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
   .toast button{
-    background:none;border:none;color:#F5A8C9;font-weight:600;font-size:14px;
+    background:none;border:none;color:#E3AEB4;font-weight:600;font-size:14px;
     cursor:pointer;font-family:var(--sans);white-space:nowrap;padding:0;
   }
 
   /* Copy fallback modal */
   .modal-bg{
-    position:fixed;inset:0;background:rgba(26,32,48,.4);display:none;
+    position:fixed;inset:0;background:rgba(57,40,42,.4);display:none;
     place-items:center;z-index:60;padding:20px;
   }
   .modal-bg.show{display:grid;}
